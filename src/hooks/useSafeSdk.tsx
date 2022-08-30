@@ -115,16 +115,16 @@ export const useSafeSdk = () => {
 		}
 	};
 
-	const changeThreshold = async (thresholdNum: number) => {
-		setIsLoading(true);
-		if (thresholdNum < 1 || thresholdNum > ownersList.length) {
+	const changeThreshold = async (newThreshold: number) => {
+		if (newThreshold < 1 || newThreshold > ownersList.length) {
 			message.warning("Threshold needs to be greater than 0 and cannot exceed owner count");
 			return;
 		}
+		setIsLoading(true);
 		try {
 			const safeSdk = await connectToExistingSafe();
 			if (!safeSdk) throw new Error("no safeSdk");
-			const safeTransaction = await safeSdk.getChangeThresholdTx(thresholdNum);
+			const safeTransaction = await safeSdk.getChangeThresholdTx(newThreshold);
 			const safeTxHash = await safeSdk.getTransactionHash(safeTransaction);
 			const senderSignature = await safeSdk.signTransactionHash(safeTxHash);
 			const { ethereum } = window as any;

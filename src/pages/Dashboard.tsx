@@ -16,6 +16,7 @@ const Dashboard = () => {
 
 	const [isModalVisible, setIsModalVisible] = useState(false);
 
+	const [newThreshold, setNewThreshold] = useState<number>();
 	const [editName, setEditName] = useState("");
 	const [editAddress, setEditAddress] = useState("");
 
@@ -55,6 +56,10 @@ const Dashboard = () => {
 			}
 		}
 	}, [ownersList]);
+
+	const onThresholdChangeClick = () => {
+		if (newThreshold) changeThreshold(newThreshold);
+	};
 
 	return (
 		<div className="dashboard-container">
@@ -101,7 +106,13 @@ const Dashboard = () => {
 			<p>
 				Any transaction requires the confirmation of: {threshold} out of {ownersList.length} owners
 			</p>
-			<Button onClick={() => changeThreshold(2)}>Change Threshold</Button>
+			<Button onClick={onThresholdChangeClick}>Change Threshold</Button>
+			<Input
+				placeholder="new threshold"
+				style={{ width: "200px", marginLeft: "20px" }}
+				onChange={(e) => setNewThreshold(Number(e.currentTarget.value))}
+				value={newThreshold}
+			/>
 		</div>
 	);
 };

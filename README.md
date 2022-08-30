@@ -1,6 +1,6 @@
 # Mural Part 2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and intentionally downgraded to version 17. It seems that `@gnosis.pm/safe-ethers-lib` doesnt work correctly with the latest version 18.
 
 ### Clone the project
 
@@ -13,4 +13,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Start the project
 
 `npm start`
-

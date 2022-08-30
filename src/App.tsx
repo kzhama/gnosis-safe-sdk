@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Spin, Typography } from "antd";
 import { useWallet } from "./hooks/useWallet";
 import { useSafeSdk } from "./hooks/useSafeSdk";
@@ -14,7 +14,6 @@ const { Title } = Typography;
 
 function App() {
 	const navigate = useNavigate();
-	const location = useLocation();
 
 	const { isLoading: isWalletLoading } = useWallet();
 	const { safeData, isWalletConnected, isNewSafe } = useContext(Context);
@@ -24,10 +23,6 @@ function App() {
 		if (isWalletConnected && localStorage.getItem("safe_address") && !safeSdk) connectToExistingSafe();
 		if (isWalletConnected && safeData.safe_address && !isNewSafe) navigate(`/dashboard/${safeData.safe_address}`);
 	}, [isWalletConnected, safeSdk, safeData, isNewSafe]);
-
-	useEffect(() => {
-		if ((!isWalletConnected || !localStorage.getItem("safe_address")) && location.pathname !== "/") navigate(`/`);
-	}, [location.pathname, isWalletConnected]);
 
 	return (
 		<div className="App">
